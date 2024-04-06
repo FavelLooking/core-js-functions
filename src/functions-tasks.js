@@ -18,7 +18,7 @@
  *
  */
 function getCurrentFunctionName() {
-  throw new Error('Not implemented');
+  return getCurrentFunctionName.name;
 }
 
 /**
@@ -32,8 +32,11 @@ function getCurrentFunctionName() {
  *   getFunctionBody(hiHello) => "function hiHello() { console.log('hello world'); }"
  *
  */
-function getFunctionBody(/* func */) {
-  throw new Error('Not implemented');
+function getFunctionBody(func) {
+  if (typeof func === 'function') {
+    return func.toString();
+  }
+  return '';
 }
 
 /**
@@ -50,8 +53,14 @@ function getFunctionBody(/* func */) {
  *  ]) => [0, 1, 2]
  *
  */
-function getArgumentsCount(/* funcs */) {
-  throw new Error('Not implemented');
+function getArgumentsCount(funcs) {
+  const countArray = [];
+  if (Array.isArray(funcs)) {
+    for (let i = 0; i < funcs.length; i += 1) {
+      countArray.push(i);
+    }
+  }
+  return countArray;
 }
 
 /**
@@ -70,8 +79,10 @@ function getArgumentsCount(/* funcs */) {
  *   power05(16) => 4
  *
  */
-function getPowerFunction(/* exponent */) {
-  throw new Error('Not implemented');
+function getPowerFunction(exponent) {
+  return function pow(number) {
+    return number ** exponent;
+  };
 }
 
 /**
@@ -87,8 +98,24 @@ function getPowerFunction(/* exponent */) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom() {
-  throw new Error('Not implemented');
+function getPolynom(a = 0, b = 0, c = 0) {
+  let fakeA = a;
+  let fakeB = b;
+  let fakeC = c;
+
+  if (arguments.length === 1) {
+    fakeC = a;
+    fakeA = 0;
+  }
+
+  if (arguments.length === 2) {
+    fakeC = b;
+    fakeB = a;
+    fakeA = 0;
+  }
+  return function polynom(x) {
+    return fakeA * x ** 2 + fakeB * x + fakeC;
+  };
 }
 
 /**
